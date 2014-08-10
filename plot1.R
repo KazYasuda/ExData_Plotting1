@@ -1,0 +1,28 @@
+
+# import data
+df <- read.table("household_power_consumption.txt", header = TRUE, sep=";", stringsAsFactors = FALSE)
+
+# combine date and time and call it datetime
+df$datetime <- strptime(paste(df[,1], df[,2]), "%d/%m/%Y %H:%M:%S")
+
+# convert date into date format
+df[,1] <- as.Date(df[,1], "%d/%m/%Y")
+
+# pick Feb 1 and Feb 2
+data <- df[(df[,1]=="2007-02-01" | df[,1]=="2007-02-02"),]
+
+# convert data into numerics
+for(t in 3:8) {data[,t] <- as.numeric(data[,t])}
+
+# create a graphic devic
+png("plot1.png", width = 480, height = 480)
+
+# draw the graph
+with(data, hist(data$Global_active_power, main = "Global Active Power", xlab = "Global Active Power (kilowatts)", col = "red"))
+
+dev.off()
+
+
+
+
+
