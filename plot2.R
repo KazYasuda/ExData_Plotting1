@@ -1,5 +1,10 @@
 
 # import data
+if (!file.exists("household_power_consumption.txt")){
+	download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", "datafile.zip")
+	unzip("datafile.zip")
+}
+
 df <- read.table("household_power_consumption.txt", header = TRUE, sep=";", stringsAsFactors = FALSE, skip=66600, nrow= 3000)
 colnames(df) <- c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metring_1", "Sub_metring_2", "Sub_metring_3")
 
